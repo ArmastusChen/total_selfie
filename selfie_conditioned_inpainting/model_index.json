@@ -1,0 +1,29 @@
+{
+  "_class_name": "PaintByExamplePipeline",
+  "_diffusers_version": "0.21.0.dev0",
+  "feature_extractor": [
+    "transformers",
+    "CLIPFeatureExtractor"
+  ],
+  "image_encoder": [
+    "paint_by_example",
+    "PaintByExampleImageEncoder"
+  ],
+  "requires_safety_checker": false,
+  "safety_checker": [
+    null,
+    null
+  ],
+  "scheduler": [
+    "diffusers",
+    "PNDMScheduler"
+  ],
+  "unet": [
+    "diffusers",
+    "UNet2DConditionModel"
+  ],
+  "vae": [
+    "diffusers",
+    "AutoencoderKL"
+  ]
+}
