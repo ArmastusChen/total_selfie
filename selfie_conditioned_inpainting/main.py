@@ -328,7 +328,6 @@ class ImageLogger(Callback):
         for k in images:
             grid = torchvision.utils.make_grid(images[k])
             grid = (grid + 1.0) / 2.0  # -1,1 -> 0,1; c,h,w
-
             tag = f"{split}/{k}"
             pl_module.logger.experiment.add_image(
                 tag, grid,
@@ -676,9 +675,7 @@ if __name__ == "__main__":
         accumulate_grad_batches = lightning_config.trainer.accumulate_grad_batches
     else:
         accumulate_grad_batches = 1
-    # if 'num_nodes' in lightning_config.trainer:
-    #     num_nodes = lightning_config.trainer.num_nodes
-    # else:
+
     num_nodes = 1
     print(f"accumulate_grad_batches = {accumulate_grad_batches}")
     lightning_config.trainer.accumulate_grad_batches = accumulate_grad_batches

@@ -45,6 +45,33 @@ Then, run the scripts and the final outputs are in ./outputs/results_final
 
     bash demo.sh
 
+## Training Selfie-Conditioned Inpainting Model
+
+First, download pretrained model weights and data from [Google Drive](https://drive.google.com/drive/folders/1urGKPP6arQdz73iYdF8HFIvu-tnvYfn0?usp=share_link), then copy the weights into the folder "selfie_conditioned_inpainting"
+
+    cd selfie_conditioned_inpainting
+
+    # download modified pretrained weight of paint by example
+    gdown --folder https://drive.google.com/drive/folders/153pR87ZrF8niv9Q1sXv3ZGoFZ_jgc9xf
+
+    # download dataset (29 GB)
+    gdown https://drive.google.com/uc?id=1T6FEl_4zwOJ5RQRjL1bPT63w8ESKnl_x
+    unzip data.zip
+
+Then, start the training, logs are in ./models
+
+    bash train.sh
+
+Finally, convert the checkpoint into diffusers format
+
+    # You need to change the src_path to your checkpoint path in this file
+    bash convert_ckpt.sh
+
+
+
+    
+
+
 ## Data Structure for a single capture
 
 As input, we require four input selfies, a background photo, and a target pose image. For the demo example, they are stored in 
@@ -69,9 +96,7 @@ As input, we require four input selfies, a background photo, and a target pose i
       ├── selfie_conditioned_inpainting   # selfie conditioned inpainting model
       
 
-## TODO
 
-Release Training code for Selfie-Conditioned Inpainting Model (Sec. 3.1 in the paper).
 
 ## Acknowledgement
 

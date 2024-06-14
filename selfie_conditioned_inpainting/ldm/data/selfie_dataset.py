@@ -100,23 +100,7 @@ class SelfieImageDataset(data.Dataset):
     
     
     def __getitem__(self, index):
-        # bbox_path=self.bbox_path_list[index]
-        # file_name=os.path.splitext(os.path.basename(bbox_path))[0]+'.jpg'
-        # dir_name=bbox_path.split('/')[-2]
-        # img_path=os.path.join('dataset/open-images/images',dir_name,file_name)
 
-
-        # bbox_list=[]
-        # with open(bbox_path) as f:
-        #     line=f.readline()
-        #     while line:
-        #         line_split=line.strip('\n').split(" ")
-        #         bbox_temp=[]
-        #         for i in range(4):
-        #             bbox_temp.append(int(float(line_split[i])))
-        #         bbox_list.append(bbox_temp)
-        #         line=f.readline()
-        # bbox=random.choice(bbox_list)
 
 
         data = self.data_list[index % self.length]
@@ -155,22 +139,6 @@ class SelfieImageDataset(data.Dataset):
         # get bbox from mask using np.where(person_mask)
         bbox = np.array(np.where(person_mask))
         bbox = [np.min(bbox[1]), np.min(bbox[0]), np.max(bbox[1]), np.max(bbox[0]), ]
-
-        # print(bbox)
-        # exit()
-
-
-        # bbox_pad=copy.copy(bbox)
-        # bbox_pad[0]=bbox[0]-min(10,bbox[0]-0)
-        # bbox_pad[1]=bbox[1]-min(10,bbox[1]-0)
-        # bbox_pad[2]=bbox[2]+min(10,img_p.size[0]-bbox[2])
-        # bbox_pad[3]=bbox[3]+min(10,img_p.size[1]-bbox[3])
-        # img_p_np=cv2.imread(img_path)
-        # img_p_np = cv2.cvtColor(img_p_np, cv2.COLOR_BGR2RGB)
-        # ref_image_tensor=img_p_np[bbox_pad[1]:bbox_pad[3],bbox_pad[0]:bbox_pad[2],:]
-        # ref_image_tensor=self.random_trans(image=ref_image_tensor)
-        # ref_image_tensor=Image.fromarray(ref_image_tensor["image"])
-        # ref_image_tensor=get_tensor_clip()(ref_image_tensor)
 
 
 
@@ -278,57 +246,12 @@ class SelfieImageDataset(data.Dataset):
         mask_tensor_resize=T.Resize([self.args['image_size'],self.args['image_size']])(mask_tensor_cropped)
         inpaint_tensor_resize=image_tensor_resize*mask_tensor_resize
 
-        # print(image_tensor_resize.shape)
-        # print(mask_tensor_resize.shape)
-        # print(inpaint_tensor_resize.shape)
-
-
-
-        # # save image_tensor_resize 
-        # image_tensor_resize = image_tensor_resize.permute(1,2,0)
-        # image_tensor_resize = image_tensor_resize.cpu().numpy()
-        # image_tensor_resize = (image_tensor_resize + 1) / 2 * 255
-        # image_tensor_resize = image_tensor_resize.astype(np.uint8)
-        # image_tensor_resize = Image.fromarray(image_tensor_resize)
-        # image_tensor_resize.save('image_tensor_resize.jpg')
-
-        # # save inpaint_tensor_resize
-        # inpaint_tensor_resize = inpaint_tensor_resize.permute(1,2,0)
-        # inpaint_tensor_resize = inpaint_tensor_resize.cpu().numpy()
-        # inpaint_tensor_resize = (inpaint_tensor_resize + 1) / 2 * 255
-        # inpaint_tensor_resize = inpaint_tensor_resize.astype(np.uint8)
-        # inpaint_tensor_resize = Image.fromarray(inpaint_tensor_resize)
-        # inpaint_tensor_resize.save('inpaint_tensor_resize.jpg')
-
-        # # save mask_tensor_resize
-        # mask_tensor_resize = mask_tensor_resize[0]
-        # mask_tensor_resize = mask_tensor_resize.cpu().numpy()
-        # mask_tensor_resize = (mask_tensor_resize + 1) / 2 * 255
-        # mask_tensor_resize = mask_tensor_resize.astype(np.uint8)
-        # mask_tensor_resize = Image.fromarray(mask_tensor_resize)
-        # mask_tensor_resize.save('mask_tensor_resize.jpg')
-        
-        # # save
-        # for kk, ref_image_tensor in enumerate(ref_image_tensors):
-        #     ref_image_tensor = ref_image_tensor.permute(1,2,0)
-        #     ref_image_tensor = ref_image_tensor.cpu().numpy()
-        #     # ref_image_tensor = (ref_image_tensor + 1) / 2 * 255
-        #     ref_image_tensor = ref_image_tensor.astype(np.uint8)
-        #     ref_image_tensor = Image.fromarray(ref_image_tensor)
-        #     ref_image_tensor.save(f'ref_image_tensor_{kk}.jpg')
-            
-
-
-        
-
-        # exit()
-        
-
         return {"GT":image_tensor_resize,"inpaint_image":inpaint_tensor_resize,"inpaint_mask":mask_tensor_resize,"ref_imgs":ref_image_tensors}
 
 
 
     def __len__(self):
+        # return 1
         return self.length
 
 

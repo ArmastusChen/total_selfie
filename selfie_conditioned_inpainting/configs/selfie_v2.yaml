@@ -80,21 +80,21 @@ data:
           target: ldm.data.selfie_dataset.SelfieImageDataset
           params:
               state: train
-              dataset_dir: ./data/selfie_dataset_standing
+              dataset_dir: ./data/selfie_dataset
               arbitrary_mask_percent: 0.5
               image_size: 512
       validation:
           target: ldm.data.selfie_dataset.SelfieImageDataset
           params:
               state: validation
-              dataset_dir: ./data/selfie_dataset_standing
+              dataset_dir: ./data/selfie_dataset
               arbitrary_mask_percent: 0.5
               image_size: 512
       test:
           target: ldm.data.selfie_dataset.SelfieImageDataset
           params:
               state: test
-              dataset_dir: ./data/selfie_dataset_standing
+              dataset_dir: ./data/selfie_dataset
               arbitrary_mask_percent: 0.5
               image_size: 512
 
@@ -103,4 +103,4 @@ lightning:
     max_epochs: 40
     num_nodes: 1
     accelerator: 'gpu'
-    gpus: "0,1,2"
+    gpus: "0"
